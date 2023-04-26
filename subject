@@ -1,0 +1,25 @@
+#include "main.h"
+#include <stdio.h>
+
+/**
+ * argu_line - handles command lines with arguments
+ * @argc: is the number of argument counts
+ * @argv: is the number of arrays passeed
+ * Return: 0
+ */
+
+int main(int argc, char *argv[])
+{
+	int i;
+
+	getline_func();
+	exit_func();
+
+	printf("argc = %d\n", argc);
+
+	for (i = 0; i < argc; i++)
+	{
+		printf("argv[%d] = %s\n", i, argv[i]);
+	}
+	return (0);
+}
