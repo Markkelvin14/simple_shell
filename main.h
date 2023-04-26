@@ -12,6 +12,12 @@
 #include <unistd.h>
 #include <string.h>
 
+/**
+ * struct linklst - contains info for the list
+ * @str: is a string
+ * @m: is an integer
+ * @next: pointer to the next node
+ */
 typedef struct linklst
 {
 	char *str;
@@ -19,6 +25,16 @@ typedef struct linklst
 	struct linklst *next;
 } list_t;
 
+/**
+ * struct infomation - containts information of alist
+ * @arg: argument pointer
+ * @status: return status
+ * @argc: arg count
+ * @argv: arg vector
+ * @filename: pointer to the file
+ * @env: data to the env
+ * @readfile: the file to which to read
+ */
 typedef struct infomation
 {
 	char *arg;
@@ -31,7 +47,7 @@ typedef struct infomation
 } more_t;
 
 char **string_split(char *str, char z);
-char getline_func();
+char getline_func(void);
 int interactive_mode(more_t *more);
 size_t print_current_env(const list_t *);
 int current_env(more_t *more);
