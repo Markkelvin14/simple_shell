@@ -28,3 +28,29 @@ char *allocate_mem(char byt, char *str, unsigned int bre)
 
 	return (str);
 }
+/**
+ *  * delim_check - checks for a delimeter
+ * @m: is a char to check
+ * @d: string
+ * Return: 1 or 0
+ */
+int delim_check(char m, char *d)
+{
+	while (*d != '\0')
+		if (*d++ == m)
+			return (1);
+	return (0);
+}
+/**
+ * alpha_check - checks for alphabetic character
+ * @m: is a char
+ * Return: 1 if alphabetic
+ */
+
+int alpha_check(int m)
+{
+	if ((m >= 'a' && m <= 'z') || (m >= 'A' && m <= 'Z'))
+		return (1);
+	else
+		return (0);
+}

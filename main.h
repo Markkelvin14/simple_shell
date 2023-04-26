@@ -34,6 +34,7 @@ typedef struct linklst
  * @filename: pointer to the file
  * @env: data to the env
  * @readfile: the file to which to read
+ * @er_num: error code
  */
 typedef struct infomation
 {
@@ -44,6 +45,7 @@ typedef struct infomation
 	char *filename;
 	list_t *env;
 	int readfile;
+	int er_num;
 } more_t;
 
 char **string_split(char *str, char z);
@@ -60,5 +62,9 @@ void clear_comments_frm_code(char *temp);
 ssize_t read_buffer_size(more_t *more, size_t *sze, char *temp_buf);
 char *allocate_mem(char byt, char *str, unsigned int bre);
 int free_mem(void **px);
+int exit_cmd(more_t *more);
+int error_atoi(char *str);
+int delim_check(char m, char *d);
+int alpha_check(int m);
 
 #endif
