@@ -1,15 +1,16 @@
 #include "main.h"
 #define BUFFER_EMPTY -1
+/**
+ * main - main code
+ * @argc: argu count
+ * @argv: argu vector
+ * Return: 0
+ */
 int main(int argc, char *argv[])
 {
 	int filed = 2;
-	/**char *str, byt;
-	unsigned int bre;
-	void **px;*/
 
 	getline_func();
-	/**allocate_mem(byt, str, bre);
-	free_mem(px);*/
 
 	if (argc == 2)
 	{
