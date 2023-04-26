@@ -10,7 +10,7 @@ size_t print_current_env(const list_t *ptr)
 
 	while (ptr)
 	{
-		_puts(ptr->str ? ptr->str : "(nil)");
+		_puts(ptr->str ? ptr->str : "(nill)");
 		_puts("\n");
 
 		ptr = ptr->next;
