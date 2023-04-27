@@ -1,3 +1,4 @@
+#include "main.h"
 /**
  * clear_comments_frm_code - clears comments
  * @temp: pointer to the str

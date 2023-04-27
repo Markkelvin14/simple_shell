@@ -29,5 +29,6 @@ char *_mstrncat(char *loc, char *souc);
 char **token_check(char *temp_buf);
 int check_builtin(char **str, int res, char *bre);
 int built_in_cmd(char **str, int res, char *bre);
+void clear_comments_frm_code(char *temp);
 
 #endif
