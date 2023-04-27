@@ -21,3 +21,4 @@ ssize_t read_buffer_size(more_t *more, size_t *sze, char *temp_buf)
 
 	return (rrd);
 }
+

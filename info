@@ -1,0 +1,60 @@
+#include "main.h"
+#define BUFFER_EMPTY -1
+/**
+ * clear_data - shows the info
+ * @more: struct
+ */
+void clear_data(more_t *more)
+{
+	more->arg = NULL;
+	more->argv = NULL;
+	more->path = NULL;
+	more->argc = 0;
+}
+/**
+ * put_data - shows the info
+ * @more: struct address
+ * @av: argu vector
+ */
+void put_data(more_t *more, char **av)
+{
+	int m = 0;
+
+	more->fname = av[0];
+	if (more->arg)
+	{
+		if (!more->argv)
+		{
+			more->argv = malloc(sizeof(char *) * 2);
+			if (more->argv)
+			{
+				more->argv[0] = _mstrdup(more->arg);
+				more->argv[1] = NULL;
+			}
+		}
+		for (m = 0; more->argv && more->argv[m]; m++)
+			more->argc = m;
+	}
+}
+/**
+ * free_datas - frees data
+ * @more: struct
+ * @dre: free data
+ */
+void free_datas(more_t *more, int dre)
+{
+	clear(more->argv);
+	more->argv = NULL;
+	more->path = NULL;
+	if (dre)
+	{
+		if (!more->buuf)
+			free(more->arg);
+		clear(more->enron);
+		more->enron = NULL;
+		free_mem((void **)more->buuf);
+		if (more->readfile > 2)
+			close(more->readfile);
+		_putchar(BUFFER_EMPTY);
+	}
+}

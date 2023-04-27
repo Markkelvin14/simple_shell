@@ -1,0 +1,79 @@
+/**
+ * write_history_file - creates a file
+ * @more: the struct
+ * Return: 1 on success, else -1
+ */
+int write_history_file(more_t *more)
+{
+	ssize_t file;
+	char *fname = history_file(more);
+	list_t *node = NULL;
+
+	if (fname == NULL)
+		return (-1);
+	file = open(fname, O_CREAT | O_TRUNC | O_RDWR, 0644);
+	free(fname);
+
+	if (file == -1)
+		return (-1);
+
+	for (node = more->history; node; node = node->next)
+	{
+		_put2file(node->str, file);
+		_putfile('\n', file);
+	}
+	_putfile(BUFFER_EMPTY, file;
+
+	close(file);
+	return (1);
+}
+/**
+ * _putfile - writes the character
+ * @k: The character to print
+ * @file: the file to write
+ * Return: 1
+ */
+int _putfile(char k, int file)
+{
+	static int m;
+	static char temp_buf[WRITE_BUFFER_SIZE];
+
+	m = 0;
+	if (k == BUFFER_EMPTY || m >= WRITE_BUFFER_SIZE)
+	{
+		write(file, temp_buf, m);
+	}
+	if (k != BUFFER_EMPTY)
+		temp_buf[m++] = k;
+	return (1);
+}
+/**
+ * _put2file - prints the string
+ * @string: the string to be printed
+ * @file: the file to write 
+ * Return: the number of chars put
+ */
+int _put2file(char *string, int file)
+{
+	int m = 0;
+
+	if (str == NULL)
+		return (0);
+	while (*str)
+	{
+		m += _putfile(*string++, file);
+	}
+	return (m);
+}
+/**
+ *  * get_history_file - gets the history file
+ *   * @info: parameter struct
+ *    *
+ *     * Return: allocated string containg history file
+ *      */
+
+char *get_history_file(info_t *info)
+{
+	char *temp_buf, *fold;
+
+	dir = _getenv(info, "HOME=");

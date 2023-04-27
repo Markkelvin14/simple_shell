@@ -1,0 +1,96 @@
+#include "main.h"
+/**
+ * _mstrncat - concatenates two strings
+ * @loc: location of buffer
+ * @w: bytes to use
+ * @souc: source
+ * Return: pointer to location
+ */
+char *_mstrncat(char *loc, char *souc, int w)
+{
+	char *str = loc;
+	int m = 0, k = 0;
+
+	while (loc[m] != '\0')
+		m++;
+	while (souc[k] != '\0' && k < w)
+	{
+		loc[m] = souc[k];
+		m++;
+		k++;
+	}
+	if (k < w)
+		loc[m] = '\0';
+	return (str);
+}
+/**
+ * _mstrncpy - copies a string
+ * @loc: the location
+ * @w: char to be copied
+ * @souc: source
+ * Return: string
+ */
+char *_mstrncpy(char *loc, char *souc, int w)
+{
+	int m = 0;
+	int k;
+	char *str = loc;
+
+	while (souc[m] != '\0' && m < w - 1)
+	{
+		loc[m] = souc[m];
+		m++;
+	}
+	if (m < w)
+	{
+		k = m;
+		while (k < w)
+		{
+			loc[k] = '\0';
+			k++;
+		}
+	}
+	return (str);
+}
+/**
+ * _mstrcmp - compares two strings
+ * @stru: string1
+ * @strb: string2
+ * Return: negative
+ */
+int _mstrcmp(char *stru, char *strb)
+{
+	while (*stru && *strb)
+	{
+		if (*stru != *strb)
+			return (*stru - *strb);
+		stru++;
+		strb++;
+	}
+	if (*stru == *strb)
+		return (0);
+	else
+		return (*stru < *strb ? -1 : 1);
+}
+/**
+ * _mstrdup - duplicates a string
+ * @string: the string
+ * Return: pointer to a string
+ */
+char *_mstrdup(const char *string)
+{
+	int len = 0;
+	char *dre;
+
+	if (string == NULL)
+		return (NULL);
+	while (*string++)
+		len++;
+	dre = malloc(sizeof(char) * (len + 1));
+	if (dre == NULL)
+		return (NULL);
+	for (len++; len--;)
+		dre[len] = *--string;
+
+	return (dre);
+}

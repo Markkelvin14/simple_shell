@@ -1,37 +1,27 @@
 #include "main.h"
-#define BUFFER_EMPTY -1
+
 /**
  * main - main code
- * @argc: argu count
- * @argv: argu vector
  * Return: 0
  */
-int main(int argc, char *argv[])
+
+int main(void)
 {
-	int filed = 2;
+	char *rd = NULL;
+	char **tk = NULL;
+	int res = 0;
 
-	getline_func();
-
-	if (argc == 2)
+	while (1)
 	{
-		filed = open(argv[1], O_RDONLY);
-		if (filed == -1)
-		{
-			if (errno == EACCES)
-				exit(126);
+		if (isatty(STDIN))
+			write(STDOUT, " ($) ", 7);
 
-			if (errno == ENOENT)
-			{
-				_mputs(argv[0]);
-				_mputs(": 0: failed ");
-				_mputs(argv[1]);
-				_mputchar('\n');
-				_mputchar(BUFFER_EMPTY);
+		rd = check_line();
+		tk = token_check(rd);
+		res = check_builtin(tk, res, rd);
 
-				exit(127);
-			}
-			return (EXIT_FAILURE);
-		}
+		free(rd);
+		free(tk);
 	}
-	return (EXIT_SUCCESS);
+	return (0);
 }

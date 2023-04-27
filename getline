@@ -1,0 +1,147 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "main.h"
+
+#define BUFFER_EMPTY -1
+#define READ_BUFFER_SIZE 1024
+#define GETLINE 0
+/**
+ * getline_func - creates a prompt
+ * Return: 0
+ */
+/**
+char getline_func(void)
+{
+	char *buffer;
+	size_t byts = 10;
+	ssize_t m = 0;
+
+	buffer = malloc(sizeof(char) * byts);
+	if (buffer == NULL)
+	{
+		return (0);
+	}
+	printf("Mark&Musty$ ");
+
+	getline(&buffer, &byts, stdin);
+
+	printf("output is: %s", buffer);
+
+	printf("Mark&Musty $ ");
+	getline(&buffer, &byts, stdin);
+
+	printf("output is: %s", buffer);
+
+	printf("Mark&Musty$ ");
+	getline(&buffer, &byts, stdin);
+
+	return (0);
+}*/
+/**
+ * get_lne - buffer
+ * @more: struct
+ * @temp_buf: address of buffer
+ * @length: address of len var
+ * Return: bytes
+ */
+ssize_t getlne(more_t *more, char **temp_buf, size_t *length)
+{
+	ssize_t bre = 0;
+	size_t lon = 0;
+
+	if (!*length)
+	{
+		free(*temp_buf);
+		*temp_buf = NULL;
+		signal (SIGINT, sig_nal);
+#if GETLINE
+		bre = getline(temp_buf, &lon, stdin);
+#else
+		bre = get_lne(more, temp_buf, &lon);
+#endif
+		if (bre > 0)
+		{
+			if ((*temp_buf)[bre - 1] == '\n')
+			{
+				(*temp_buf)[bre - 1] = '\0';
+				bre--;
+			}
+			more->lencoun = 1;
+			clear_comments_frm_code(*temp_buf);
+			/**build_history_list(more, *temp_buf, more->hist++);*/
+			{
+				*length = bre;
+				more->buuf = temp_buf;
+			}
+		}
+	}
+	return (bre);
+}
+/**
+ * sig_nal - blocks ctrl-C
+ * @num: the signal number
+ * Return: void
+ */
+void sig_nal(__attribute__((unused))int num)
+{
+	_puts("\n");
+	_puts("$ ");
+	_putchar(BUFFER_EMPTY);
+}
+/**
+ * get_lne - gets the next line
+ * @more: struct
+ * @wd: is a pointer
+ * @len: size 
+ * Return: s
+ */
+int get_lne(more_t *more, char **wd, size_t *len)
+{
+	static char temp_buf[READ_BUFFER_SIZE];
+	static size_t bre, length;
+	size_t j;
+	char *px = NULL, *pr = NULL, *m;
+	ssize_t rd = 0, x = 0;
+
+	px = *wd;
+	if (px && len)
+		x = *len;
+	if (bre == length)
+		bre = length = 0;
+	rd = read_buffer(more, temp_buf, &length);
+	if (rd == -1 || (rd == 0 && length == 0))
+		return (-1);
+	m = strchr(temp_buf + bre, '\n');
+	j = m ? 1 + (unsigned int)(m - temp_buf) : length;
+	pr = _relcate(px, x, x ? x + j : j + 1);
+	if (!pr)
+		return (px ? free(px), -1 : -1);
+	if (x)
+		_mstrncat(pr, temp_buf + bre, j - bre);
+	else
+		_mstrncpy(pr, temp_buf + bre, j - bre + 1);
+	x += j - bre;
+	bre = j;
+	px = pr;
+	if (len)
+		*len = x;
+	return (x);
+}
+/**
+ * read_buffer - reads a buffer
+ * @more: struct
+ * @temp_buf: buffer
+ * @m: size
+ * Return: the value
+ */
+ssize_t read_buffer(more_t *more, char *temp_buf, size_t *m)
+{
+	ssize_t rd = 0;
+
+	if (*m)
+		return (0);
+	rd = read(more->readfile, temp_buf, READ_BUFFER_SIZE);
+	if (rd >= 0)
+		*m = rd;
+	return (rd);
+}

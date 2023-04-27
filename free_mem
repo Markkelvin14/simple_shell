@@ -1,0 +1,57 @@
+#include "main.h"
+/**
+ * free_mem - frees memory
+ * @px: is a pointer to the memory
+ * Return: 0
+ */
+int free_mem(void **px)
+{
+	if (px && *px != NULL)
+	{
+		free(*px);
+		*px = NULL;
+		return (1);
+	}
+	return (0);
+}
+/**
+ * _relcate - reallocates the memory
+ * @px: pointer to previous mem
+ * @lon: byte of previous mem
+ * @selon: byte to new mem
+ * Return: pointer
+ */
+void *_relcate(void *px, unsigned int lon, unsigned int selon)
+{
+	char *m;
+
+	if (!px)
+		return (malloc(selon));
+	if (!selon)
+		return (free(px), NULL);
+	if (selon == lon)
+		return (px);
+	m = malloc(lon);
+	if (m == NULL)
+		return (NULL);
+	lon = lon < selon ? lon : selon;
+	while (lon--)
+		m[lon] = ((char*)px)[lon];
+	free(px);
+
+	return (m);
+}
+/**
+ * clear - frees a string
+ * @ptr: string
+ */
+void clear(char **ptr)
+{
+	char **m = ptr;
+
+	if (!ptr)
+		return;
+	while (*ptr)
+		free(*ptr++);
+	free(m);
+}

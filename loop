@@ -1,0 +1,88 @@
+#include "main.h"
+#define BUFFER_EMPTY -1
+
+/**
+ * secure - loop
+ * @more: struct
+ * @av: argu vector
+ * Return: 0
+ */
+int secure(more_t *more, char **av)
+{
+	ssize_t m = 0;
+	int k = 0;
+
+	while (m != -1 && k != -2)
+	{
+		clear_data(more);
+		if (interactive_mode(more))
+			_puts("$ ");
+		_mputchar(BUFFER_EMPTY);
+
+
+		if (m != -1)
+		{
+			put_data(more, av);
+			k = builtin(more);
+			/**if (k == -1)*/
+				/**look_cmd(more);*/
+		}
+		else if (interactive_mode(more))
+			_putchar('\n');
+		free_datas(more, 0);
+	}
+	/**write_history(info);*/
+	/**free_info(info, 1);*/
+	if (!interactive_mode(more) && more->status)
+		exit(more->status);
+	if (k == -2)
+	{
+		if (more->er_num == -1)
+			exit(more->status);
+		exit(more->er_num);
+	}
+	return (k);
+}
+/**
+ * builtin - finds a builtin command
+ * @more: struct
+ * Return: -1
+ */
+int builtin(more_t *more)
+{
+	int m, k = -1;
+	builtin_codes built[] = {
+		{"exit", exit_cmd},
+		{NULL, NULL}
+	};
+	for (m = 0; built[m].data; m++)
+		if (_mstrcmp(more->argv[0], built[m].data) == 0)
+		{
+			more->line++;
+			k = built[m].func(more);
+			break;
+		}
+	return (k);
+}
+/**
+ *  * find_cmd - finds a command in PATH
+ * @info: the parameter & return info struct
+ * Return: void
+ */
+/**void find_cmd(info_t *info)*/
+	/**char *way = NULL;*/
+	/**int m, j;*/
+
+	/**more->path = more->argv[0];*/
+	/**if (more->lencoun == 1)*/
+	/**{
+		more->line++;
+		more->lencoun = 0;
+	}*/
+
+	/**for (m = 0, j = 0; info->arg[m]; m++)*/
+		/**if (!delim_check(more->arg[m], " \t\n"))*/
+			/**j++;*/
+	/**if (!j)*/
+		/**return;*/
+	/**path = find_path(more, _mgetenv(more, "PATH="), more->argv[0]);*/
